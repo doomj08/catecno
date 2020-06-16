@@ -108,6 +108,7 @@
                         this.listas=res.data.listas
                         this.cargando=false;
 <<<<<<< HEAD
+<<<<<<< HEAD
                         this.camposeditados="";
                     })
                     .catch(e => {
@@ -131,6 +132,8 @@
                     .then((res)=>{
                         this.cargando=false;
                         this.consultar();
+=======
+>>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
 =======
 >>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
                     })

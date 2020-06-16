@@ -2459,6 +2459,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.errores = e.response.data.errors;
       });
 <<<<<<< HEAD
+<<<<<<< HEAD
     },
     editarcampos: function editarcampos(item) {
       this.camposeditados = item;
@@ -2482,6 +2483,8 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (e) {
         _this2.errores = e.response.data.errors;
       });
+=======
+>>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
 =======
 >>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
     }
@@ -39045,6 +39048,7 @@ render._withStripped = true
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditarComponent.vue?vue&type=template&id=1eaa1ae7&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EditarComponent.vue?vue&type=template&id=1eaa1ae7& ***!
@@ -39176,6 +39180,8 @@ render._withStripped = true
 
 /***/ }),
 
+=======
+>>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -39458,7 +39464,11 @@ var render = function() {
                 staticClass: "campo",
                 attrs: { type: _vm.type },
 <<<<<<< HEAD
+<<<<<<< HEAD
                 domProps: { value: _vm.valorheredado },
+=======
+                domProps: { value: _vm.value },
+>>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
 =======
                 domProps: { value: _vm.value },
 >>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
@@ -39479,6 +39489,7 @@ var render = function() {
               ],
               2
             )
+<<<<<<< HEAD
 <<<<<<< HEAD
           : _vm.type === "checkbox"
           ? _c("input", {
@@ -39532,6 +39543,9 @@ var render = function() {
                   expression: "valorheredado"
                 }
               ],
+=======
+          : _c("input", {
+>>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
 =======
           : _c("input", {
 >>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
