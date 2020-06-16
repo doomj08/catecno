@@ -23,3 +23,7 @@ Route::get('/panel', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('empresas','EmpresaTransporteController');
+Route::resource('cursos','CursoController');
+Route::resource('conductores','ConductorController');
+Route::resource('certificados','CursoConductorController');

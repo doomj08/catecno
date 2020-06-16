@@ -24,6 +24,7 @@ Vue.component('sidebar-component', require('./components/SidebarComponent.vue').
 Vue.component('topbar-component', require('./components/TopbarComponent.vue').default);
 Vue.component('footer-component', require('./components/FooterrComponent').default);
 Vue.component('tabla-component', require('./components/TablaComponent').default);
+Vue.component('spinner-component', require('./components/SpinnerComponent').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
