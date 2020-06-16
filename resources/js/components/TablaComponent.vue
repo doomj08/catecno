@@ -121,10 +121,11 @@
                 $('#editcomponent').modal('show');
             },
             eliminar(id){
-                swal.fire({
-                    type: 'success',
-                    title: 'User Added successfully'
-                })
+                BootstrapDialog.confirm('Hi Apple, are you sure?', function(result){
+                    if(!result) {
+                        return false;
+                    }
+                });
                 this.cargando=true;
                 axios.delete(this.url+'/'+id)
                     .then((res)=>{
