@@ -26,7 +26,6 @@ Vue.component('topbar-component', require('./components/TopbarComponent.vue').de
 Vue.component('footer-component', require('./components/FooterrComponent').default);
 Vue.component('tabla-component', require('./components/TablaComponent').default);
 Vue.component('crear-component', require('./components/CrearComponent').default);
-Vue.component('editar-component', require('./components/EditarComponent').default);
 Vue.component('spinner-component', require('./components/SpinnerComponent').default);
 Vue.component('f-input-component', require('./components/InputComponent').default);
 
