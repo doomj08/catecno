@@ -124,11 +124,10 @@
                 $('#editcomponent').modal('show');
             },
             eliminar(id){
-                BootstrapDialog.confirm('Hi Apple, are you sure?', function(result){
-                    if(!result) {
-                        return false;
-                    }
-                });
+                swal.fire({
+                    type: 'success',
+                    title: 'User Added successfully'
+                })
                 this.cargando=true;
                 axios.delete(this.url+'/'+id)
                     .then((res)=>{
