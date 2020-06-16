@@ -1,23 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+    <tabla-component
+            url="certificados"
+            :columnas="[
+            {nombre:'id'    ,alias:'#'},
+            {nombre:'curso' ,alias:'curso', subtabla:'curso', subcolumna:'nombre'},
+            {nombre:'carnet'},
+            {nombre:'conductor' ,alias:'conductor', subtabla:'conductor', subcolumna:'Nombres', subcolumna2:'Apellidos'},
+            {nombre:'fecha_ingreso' ,alias:'fecha de ingreso'},
+            {nombre:'fecha_vence' ,alias:'fecha de vencimiento'},
+        ]"
+    ></tabla-component>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
