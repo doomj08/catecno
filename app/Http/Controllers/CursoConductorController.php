@@ -6,6 +6,7 @@ use App\Conductor;
 use App\Curso;
 use App\CursoConductor;
 use App\EmpresaTransporte;
+use App\Http\Requests\ConductorRequest;
 use Illuminate\Http\Request;
 
 class CursoConductorController extends Controller
@@ -50,9 +51,10 @@ class CursoConductorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ConductorRequest $request)
     {
-        //
+        Conductor::create($request->all()); //TODO:agregar valor predeterminado = 1 desde controlador al campo institucion_id
+        return;
     }
 
     /**

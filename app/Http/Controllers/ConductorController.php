@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Conductor;
+use App\Http\Requests\ConductorRequest;
 use Illuminate\Http\Request;
 
 class ConductorController extends Controller
@@ -41,9 +42,10 @@ class ConductorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ConductorRequest $request)
     {
-        //
+        Conductor::create($request->all());
+        return;
     }
 
     /**

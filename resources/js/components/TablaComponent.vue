@@ -8,7 +8,10 @@
         <spinner-component v-if="cargando"></spinner-component>
         <div v-else class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{titulo}}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{titulo}}
+                    <a href="#" class="btn btn-primary pull-right" data-toggle="modal" :data-target="'#create'+titulo">
+                        Nuevo Registro
+                    </a></h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -17,12 +20,14 @@
                         <tr>
                             <th v-for="columna in columnas" class="uppercase" v-if="columna.alias">{{columna.alias}}</th>
                             <th v-else class="uppercase">{{columna.nombre}}</th>
+                            <th class="uppercase">ACCIONES</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
                             <th v-for="columna in columnas" class="uppercase" v-if="columna.alias">{{columna.alias}}</th>
                             <th v-else class="uppercase">{{columna.nombre}}</th>
+                            <th class="uppercase">ACCIONES</th>
                         </tr>
                         </tfoot>
                         <tbody >
@@ -36,6 +41,12 @@
                             </td>
                             <td v-else-if="item[columna.nombre]&&columna.subcolumna">{{item[columna.nombre][columna.subcolumna]}}</td>
                             <td v-else>{{item[columna.nombre]}}</td>
+                            <td class="inline-block">
+                                <button class="btn btn-primary btn-circle btn-block"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-danger btn-circle btn-block"><i class="fa fa-edit"></i></button>
+                            </td>
+
+
                         </tr>
                         </tbody>
                     </table>
@@ -44,6 +55,14 @@
         </div>
         <div>
 
+            <crear-component
+                    :titulo=titulo
+                    :campos=campos
+                    :url="url"
+                    :listas="listas"
+                    @actualizardatos="consultar()"
+
+            ></crear-component>
         </div>
     </div>
     <!-- /.container-fluid -->

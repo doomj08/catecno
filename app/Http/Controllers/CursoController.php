@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Curso;
+use App\Http\Requests\CursoRequest;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
@@ -42,9 +43,10 @@ class CursoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CursoRequest $request)
     {
-        //
+        Curso::create($request->all());
+        return;
     }
 
     /**

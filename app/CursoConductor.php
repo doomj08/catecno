@@ -8,6 +8,8 @@ class CursoConductor extends Model
 {
     protected $table="curso_conductores";
 
+    protected $fillable=['curso','conductor','empresa_transporte','conductor_id','carnet','fecha_ingreso','fecha_vence'];
+
     public function Curso(){
         return $this->belongsTo('App\Curso');
     }

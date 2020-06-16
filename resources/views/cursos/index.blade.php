@@ -11,5 +11,8 @@
             {nombre:'updated_at' ,alias:'FECHA DE ACTUALIZACIÓN'},
             {nombre:'updated_at' ,alias:'FECHA DE ACTUALIZACIÓN'},
         ]"
+            :campos="[
+            {nombre: 'nombre',                alias:'curso',          tipo: 'String', value:'',                  class:'col-sm-8'},
+        ]"
     ></tabla-component>
 @endsection

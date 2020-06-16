@@ -9,28 +9,18 @@
                     </button>
                 </div>
                 <div v-for="(campo,key) in campos" :key="key">
-
-                    <div class="large-12 medium-12 small-12 cell">
-                        <label>File
-                            <input type="file" id="file" ref="file"
-                                   v-on:change="handleFileUpload()"/>
-                        </label>
-                        <button v-on:click="submitFile()">Submit</button>
-                    </div>
-                    <f-input-component v-else
-                            :label="campo.nombre"
-                            :type="campo.tipo"
-                            v-model="campo.value"
-                            :lista="listas[campo.opciones]"
-                            :class="campo.class"
-
-
+                    <f-input-component
+                                       :label="campo.nombre"
+                                       :type="campo.tipo"
+                                       v-model="campo.value"
+                                       :lista="listas[campo.opciones]"
+                                       :class="campo.class"
                     >
                         <span class="text-danger span" v-for="error in errores[campo.nombre]">{{error}}</span>
                     </f-input-component>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary" value="Guardar" @click="crear">
+                    <input type="submit" class="btn btn-primary" value="Guardar" @click="crear(titulo)">
                 </div>
             </div>
         </div>
@@ -46,7 +36,7 @@
             },
             url:{
                 type:String,
-                default:'/#'
+                default:'/'
             },
             campos: {
                 type: Array,
@@ -85,14 +75,18 @@
             limpiarparametros(){
                 for (var i = 0; i < this.campos.length; i++)
                     this.campos[i].value='';
-                    this.parametros = '';
+                this.parametros = '';
+                this.errores=[];
             },
-            crear(){
+            crear(titulo){
                 this.llenarparametros()
                 axios.post(this.url,this.parametros).then(
                     (res)=>{
-                        console.log(res)
+                        this.$emit('actualizardatos');
+                        this.limpiarparametros();
+                        $('#create'+titulo).modal('hide');
                     }).catch(e=>{
+                        console.log(e.response)
                     this.errores=e.response.data.errors;
                 })
             },

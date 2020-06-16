@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EmpresaTransporte;
+use App\Http\Requests\EmpresaRequest;
 use Illuminate\Http\Request;
 
 class EmpresaTransporteController extends Controller
@@ -40,9 +41,10 @@ class EmpresaTransporteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmpresaRequest $request)
     {
-        //
+        EmpresaTransporte::create($request->all());
+        return;
     }
 
     /**
