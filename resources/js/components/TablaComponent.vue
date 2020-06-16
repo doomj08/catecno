@@ -31,7 +31,6 @@
                         </tr>
                         </tfoot>
                         <tbody >
-
                         <tr v-for="item in items" >
                             <td v-for="columna in columnas"
                                 class="uppercase"
@@ -42,11 +41,9 @@
                             <td v-else-if="item[columna.nombre]&&columna.subcolumna">{{item[columna.nombre][columna.subcolumna]}}</td>
                             <td v-else>{{item[columna.nombre]}}</td>
                             <td class="inline-block">
-                                <button class="btn btn-primary btn-circle btn-block"><i class="fa fa-edit"></i></button>
-                                <button class="btn btn-danger btn-circle btn-block"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-primary btn-circle " @click="editarcampos(item)"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-danger btn-circle "  @click="eliminar(item.id)"><i class="fa fa-edit"></i></button>
                             </td>
-
-
                         </tr>
                         </tbody>
                     </table>
@@ -54,15 +51,21 @@
             </div>
         </div>
         <div>
-
             <crear-component
                     :titulo=titulo
                     :campos=campos
                     :url="url"
                     :listas="listas"
                     @actualizardatos="consultar()"
-
             ></crear-component>
+            <editar-component
+                    :titulo=titulo
+                    :campos=campos
+                    :url="url"
+                    :listas="listas"
+                    @actualizardatos="consultar()"
+                    :camposeditados="camposeditados"
+            ></editar-component>
         </div>
     </div>
     <!-- /.container-fluid -->
@@ -79,7 +82,7 @@
             },
             url:{
                 type:String,
-                default:'/#'
+                default:'/'
             },
             campos:{
                 type:Array,
@@ -96,6 +99,7 @@
                 listas:'',
                 errores:[],
                 cargando:true,
+                camposeditados:[]
             }
         },
         methods:{
@@ -107,6 +111,29 @@
                         this.items=res.data.tabla
                         this.listas=res.data.listas
                         this.cargando=false;
+                        this.camposeditados="";
+                    })
+                    .catch(e => {
+                        this.errores=e.response.data.errors;
+                    });
+            },
+            editarcampos(item){
+                this.camposeditados=item
+                console.log(item)
+                console.log(this.camposeditados)
+                $('#editcomponent').modal('show');
+            },
+            eliminar(id){
+                BootstrapDialog.confirm('Hi Apple, are you sure?', function(result){
+                    if(!result) {
+                        return false;
+                    }
+                });
+                this.cargando=true;
+                axios.delete(this.url+'/'+id)
+                    .then((res)=>{
+                        this.cargando=false;
+                        this.consultar();
                     })
                     .catch(e => {
                         this.errores=e.response.data.errors;

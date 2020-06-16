@@ -2,13 +2,13 @@
     <div class="componente" >
         <div class="form">
             <li>{{label}}</li>
-            <select class="campo" v-if="type=='Select'" :value="value" :type="type"
+            <select class="campo" v-if="type=='Select'" :value="valorheredado" :type="type"
                    v-on:input="$emit('input', $event.target.value)"
             >
                 <option>...</option>
                 <option v-for="(item,key) in lista" :value="key">{{item}}</option>
             </select>
-            <input class="campo" v-else :value="value" :type="type"
+            <input class="campo" v-else v-model="valorheredado" :type="type"
                     v-on:input="$emit('input', $event.target.value)"
             >
             <slot></slot>
@@ -65,12 +65,19 @@
     export default{
         props:{
             label:'',
-            value:'',
+            value:{
+                type:String,
+                default:''
+            },
             type:{
                 type:String,
                 default:''
             },
             lista:{
+                type:String,
+                default:''
+            },
+            valorheredado:{
                 type:String,
                 default:''
             },
@@ -88,8 +95,12 @@
         },
         methods:{
             changevalue() {
-                this.$emit('updatemodel', this.value)  // 1. Emitting
+                this.$emit('input', $event.target.value)  // 1. Emitting
+                console.log('input creado')
             }
         },
+        mounted() {
+            this.changevalue()
+        }
     }
 </script>
