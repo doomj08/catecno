@@ -31,7 +31,9 @@
         <div id="content">
                 @yield('content')
         </div>
-        <footer-component></footer-component>
+        <footer-component
+            titulo="Desarrollado por Itcmn, 2020"
+        ></footer-component>
     </div>
     <!-- End of Content Wrapper -->
 

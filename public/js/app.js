@@ -2181,6 +2181,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    titulo: {
+      type: String,
+      "default": 'Copyright © Your Website 2019'
+    }
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -42507,22 +42513,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("footer", { staticClass: "sticky-footer bg-white" }, [
-      _c("div", { staticClass: "container my-auto" }, [
-        _c("div", { staticClass: "copyright text-center my-auto" }, [
-          _c("span", [_vm._v("Copyright © Your Website 2019")])
-        ])
+  return _c("footer", { staticClass: "sticky-footer bg-white" }, [
+    _c("div", { staticClass: "container my-auto" }, [
+      _c("div", { staticClass: "copyright text-center my-auto" }, [
+        _c("span", [_vm._v(_vm._s(_vm.titulo))])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
