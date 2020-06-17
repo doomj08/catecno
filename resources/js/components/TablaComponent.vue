@@ -31,7 +31,6 @@
                         </tr>
                         </tfoot>
                         <tbody >
-
                         <tr v-for="item in items" >
                             <td v-for="columna in columnas"
                                 class="uppercase"
@@ -42,11 +41,9 @@
                             <td v-else-if="item[columna.nombre]&&columna.subcolumna">{{item[columna.nombre][columna.subcolumna]}}</td>
                             <td v-else>{{item[columna.nombre]}}</td>
                             <td class="inline-block">
-                                <button class="btn btn-primary btn-circle btn-block"><i class="fa fa-edit"></i></button>
-                                <button class="btn btn-danger btn-circle btn-block"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-primary btn-circle " @click="editarcampos(item)"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-danger btn-circle "  @click="eliminar(item.id)"><i class="fa fa-recycle"></i></button>
                             </td>
-
-
                         </tr>
                         </tbody>
                     </table>
@@ -54,14 +51,12 @@
             </div>
         </div>
         <div>
-
             <crear-component
                     :titulo=titulo
                     :campos=campos
                     :url="url"
                     :listas="listas"
                     @actualizardatos="consultar()"
-
             ></crear-component>
         </div>
     </div>
@@ -107,8 +102,6 @@
                         this.items=res.data.tabla
                         this.listas=res.data.listas
                         this.cargando=false;
-<<<<<<< HEAD
-<<<<<<< HEAD
                         this.camposeditados="";
                     })
                     .catch(e => {
@@ -122,24 +115,35 @@
                 $('#editcomponent').modal('show');
             },
             eliminar(id){
-                BootstrapDialog.confirm('Hi Apple, are you sure?', function(result){
-                    if(!result) {
-                        return false;
+                swal.fire({
+                    title: 'Está seguro de que desea eliminar este registro?',
+                    text: "Si lo elimina ya no se podrá recuperar",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, deseo eliminar',
+                    cancelButtonText: 'No, cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        this.cargando=true;
+                        axios.delete(this.url+'/'+id)
+                            .then((res)=>{
+                                this.cargando=false;
+                                swal.fire(
+                                    'Borrado!',
+                                    'Su registro ha sido eliminado',
+                                    'success'
+                                )
+                                this.consultar();
+                            })
+                            .catch(e => {
+                                this.errores=e.response.data.errors;
+                            });
+
+
                     }
-                });
-                this.cargando=true;
-                axios.delete(this.url+'/'+id)
-                    .then((res)=>{
-                        this.cargando=false;
-                        this.consultar();
-=======
->>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
-=======
->>>>>>> parent of e45da6b... EditarComponent adecuado para las tablas, conductores, empresas y cursos
-                    })
-                    .catch(e => {
-                        this.errores=e.response.data.errors;
-                    });
+                })
             }
         },
         mounted() {
