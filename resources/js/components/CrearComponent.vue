@@ -85,6 +85,7 @@
                         this.$emit('actualizardatos');
                         this.limpiarparametros();
                         $('#create'+titulo).modal('hide');
+                        swal.fire('Registro creado','Los datos fueron creados correctamente','success');
                     }).catch(e=>{
                         console.log(e.response)
                     this.errores=e.response.data.errors;

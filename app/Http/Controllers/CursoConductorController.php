@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Conductor;
 use App\Curso;
 use App\CursoConductor  as Table;
+use App\CursoConductor;
 use App\EmpresaTransporte;
 use App\Http\Requests\ConductorRequest;
+use App\Http\Requests\CursoConductorRequest;
 use Illuminate\Http\Request;
 
 class CursoConductorController extends Controller
@@ -30,13 +32,13 @@ class CursoConductorController extends Controller
         return view('certificados.index');
     }
 
-    public function store(ConductorRequest $request)
+    public function store(CursoConductorRequest $request)
     {
         Table::create($request->all()); //TODO:agregar valor predeterminado = 1 desde controlador al campo institucion_id
         return;
     }
 
-    public function update(ConductorRequest $request)
+    public function update(CursoConductorRequest $request)
     {
         Table::findOrFail($request->id)->update($request->all());
         return;

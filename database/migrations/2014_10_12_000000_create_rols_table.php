@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConductorsTable extends Migration
+class CreateRolsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateConductorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('conductors', function (Blueprint $table) {
-            $table->id();
+        Schema::create('roles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nombre', 20);
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateConductorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conductors');
+        Schema::dropIfExists('roles');
     }
 }

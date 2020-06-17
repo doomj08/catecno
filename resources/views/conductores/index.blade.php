@@ -16,6 +16,7 @@
             {nombre: 'cedula',                alias:'CÉDULA',          tipo: 'Number', value:'',                  class:'col-sm-12'},
             {nombre: 'nombres',                alias:'NOMBRES',          tipo: 'String', value:'',                  class:'col-sm-12'},
             {nombre: 'apellidos',                alias:'APELLIDOS',          tipo: 'String', value:'',                  class:'col-sm-12'},
+            {nombre: 'institucion_id',                alias:'INSTITUCION',          tipo: 'Number', value:'1',                  class:'col-sm-12'},
         ]"
     ></tabla-component>
 @endsection

@@ -27,3 +27,4 @@ Route::resource('empresas','EmpresaTransporteController');
 Route::resource('cursos','CursoController');
 Route::resource('conductores','ConductorController');
 Route::resource('certificados','CursoConductorController');
+Route::resource('instituciones','InstitucionController');

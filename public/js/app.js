@@ -2005,6 +2005,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.limpiarparametros();
 
         $('#create' + titulo).modal('hide');
+        swal.fire('Registro creado', 'Los datos fueron creados correctamente', 'success');
       })["catch"](function (e) {
         console.log(e.response);
         _this2.errores = e.response.data.errors;

@@ -48,7 +48,7 @@ class CursoRequest extends FormRequest
     {
         return [
             'nombre.required' => 'El nombre del curso es es un campo obligatorio',
-            'nombre.unique' => 'Este curso ya se encuentra registrada',
+            'nombre.unique' => 'Este curso ya existe',
         ];
     }
 }

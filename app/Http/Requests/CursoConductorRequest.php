@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\CursoConductor;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CursoConductorRequest extends FormRequest
+class   CursoConductorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -47,34 +47,40 @@ class CursoConductorRequest extends FormRequest
                 'conductor_id'=>'required',
                 'curso_id'=>'required',
                 'carnet'=>'required',
-                'certificado'=>'required',
+                //'certificado'=>'required',
                 'inicio'=>'required',
                 'vence'=>'required',
-                'file'=>'required',
+                //'file'=>'required',
             ];
         }
         elseif(isset($editar->id)){
             return [
-                'empresa_transporte_id'=>'required',
-                'conductor_id'=>'required',
                 'curso_id'=>'required',
-                'carnet'=>'required',
-                'certificado'=>'required',
+                'carnet'=>'required|unique:cursoconductores',
+                'conductor_id'=>'required',
+                'empresa_transporte_id'=>'required',
+
+
+
+                //'certificado'=>'required',
                 'fecha_ingreso'=>'required',
                 'fecha_vence'=>'required',
-                'file'=>'required',
+                //'file'=>'required',
             ];
         }
         else{
             return [
-                'empresa_transporte_id'=>'required',
-                'conductor_id'=>'required',
                 'curso_id'=>'required',
-                'carnet'=>'required',
-                'certificado'=>'required',
+                'carnet'=>'required|unique:curso_conductores',
+                'conductor_id'=>'required',
+                'empresa_transporte_id'=>'required',
+
+
+
+                //'certificado'=>'required',
                 'fecha_ingreso'=>'required',
                 'fecha_vence'=>'required',
-                'file'=>'required',
+                //'file'=>'required',
             ];
         }
     }
@@ -85,8 +91,9 @@ class CursoConductorRequest extends FormRequest
             'conductor_id.required' => 'Es obligatorio elegir un conductor',
             'curso_id.required' => 'Es obligatorio elegir un curso',
             'carnet.required' => 'El código de carnet es un campo obligatorio',
-            'inicio.required' => 'La fecha de inicio es un campo obligatorio',
-            'vence.required' => 'La fecha de vencimiento es un campo obligatorio',
+            'carnet.unique' => 'Este carnet ya ha sido asignado anteriormente',
+            'fecha_ingreso.required' => 'La fecha de inicio es un campo obligatorio',
+            'fecha_vence.required' => 'La fecha de vencimiento es un campo obligatorio',
 
         ];
     }
