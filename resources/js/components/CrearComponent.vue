@@ -82,8 +82,9 @@
                 this.llenarparametros()
                 axios.post(this.url,this.parametros).then(
                     (res)=>{
-                        this.$emit('actualizardatos');
                         this.limpiarparametros();
+                        this.$emit('actualizardatos');
+
                         $('#create'+titulo).modal('hide');
                         swal.fire('Registro creado','Los datos fueron creados correctamente','success');
                     }).catch(e=>{

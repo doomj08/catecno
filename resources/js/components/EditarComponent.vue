@@ -75,6 +75,7 @@
             limpiarparametros(){
                 this.parametros = "";
                 this.camposeditados = "";
+                this.errores="";
             },
             editar(id){
                 axios.put(this.url+'/'+this.camposeditados.id,this.camposeditados).then(

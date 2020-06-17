@@ -20,14 +20,14 @@ class CreateCursoConductoresTable extends Migration
             $table->unsignedInteger('conductor_id');
             $table->foreign('conductor_id')->references('id')->on('conductores');
             $table->string('carnet',12);
-            $table->string('certificado',255);
+            $table->string('certificado',255)->default('');
             $table->date('fecha_ingreso');
             $table->date('fecha_vence');
             $table->unsignedInteger('empresa_transporte_id');
             $table->foreign('empresa_transporte_id')->references('id')->on('empresa_transportes');
             $table->softDeletes();
             $table->timestamps();
-            $table->unique(['conductor_id', 'carnet']);
+            $table->unique(['carnet']);
         });
     }
 

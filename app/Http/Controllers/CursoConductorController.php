@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Conductor;
 use App\Curso;
 use App\CursoConductor  as Table;
-use App\CursoConductor;
 use App\EmpresaTransporte;
 use App\Http\Requests\ConductorRequest;
 use App\Http\Requests\CursoConductorRequest;

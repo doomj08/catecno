@@ -2000,9 +2000,9 @@ __webpack_require__.r(__webpack_exports__);
 
       this.llenarparametros();
       axios.post(this.url, this.parametros).then(function (res) {
-        _this2.$emit('actualizardatos');
-
         _this2.limpiarparametros();
+
+        _this2.$emit('actualizardatos');
 
         $('#create' + titulo).modal('hide');
         swal.fire('Registro creado', 'Los datos fueron creados correctamente', 'success');
@@ -2105,6 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
     limpiarparametros: function limpiarparametros() {
       this.parametros = "";
       this.camposeditados = "";
+      this.errores = "";
     },
     editar: function editar(id) {
       var _this2 = this;

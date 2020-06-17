@@ -15,7 +15,7 @@ class CreateEmpresaTransportesTable extends Migration
     {
         Schema::create('empresa_transportes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Razon_social',100);
+            $table->string('razon_social',100);
             $table->softDeletes();
             $table->timestamps();
         });

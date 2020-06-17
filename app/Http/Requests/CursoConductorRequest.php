@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\CursoConductor;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class   CursoConductorRequest extends FormRequest
 {
@@ -56,12 +57,11 @@ class   CursoConductorRequest extends FormRequest
         elseif(isset($editar->id)){
             return [
                 'curso_id'=>'required',
-                'carnet'=>'required|unique:cursoconductores',
+                'carnet'=>
+                    ($editar->carnet!=$this->carnet)?
+                        'required|unique:curso_conductores':'required',
                 'conductor_id'=>'required',
                 'empresa_transporte_id'=>'required',
-
-
-
                 //'certificado'=>'required',
                 'fecha_ingreso'=>'required',
                 'fecha_vence'=>'required',
@@ -74,9 +74,6 @@ class   CursoConductorRequest extends FormRequest
                 'carnet'=>'required|unique:curso_conductores',
                 'conductor_id'=>'required',
                 'empresa_transporte_id'=>'required',
-
-
-
                 //'certificado'=>'required',
                 'fecha_ingreso'=>'required',
                 'fecha_vence'=>'required',
