@@ -28,6 +28,7 @@ Vue.component('crear-component', require('./components/CrearComponent').default)
 Vue.component('editar-component', require('./components/EditarComponent').default);
 Vue.component('spinner-component', require('./components/SpinnerComponent').default);
 Vue.component('f-input-component', require('./components/InputComponent').default);
+Vue.component('file-component', require('./components/FileComponent').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -9,6 +9,7 @@ use App\EmpresaTransporte;
 use App\Http\Requests\ConductorRequest;
 use App\Http\Requests\CursoConductorRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CursoConductorController extends Controller
 {
@@ -33,12 +34,30 @@ class CursoConductorController extends Controller
 
     public function store(CursoConductorRequest $request)
     {
-        Table::create($request->all()); //TODO:agregar valor predeterminado = 1 desde controlador al campo institucion_id
+        //return $request;
+        $base64_image = $request->input('certificado'); // your base64 encoded
+        @list($type, $file_data) = explode(';', $base64_image);
+        @list(, $file_data) = explode(',', $file_data);
+        $imageName = time().'.'.'pdf';
+        $path=$imageName;
+        $request['pdf']=$base64_image;
+        $request['certificado']=$path;
+
+        Table::create($request->all());
+        Storage::disk('certificados')->put($imageName, base64_decode($file_data));
         return;
     }
 
     public function update(CursoConductorRequest $request)
     {
+        $base64_image = $request->input('certificado'); // your base64 encoded
+        @list($type, $file_data) = explode(';', $base64_image);
+        @list(, $file_data) = explode(',', $file_data);
+        $imageName = time().'.'.'pdf';
+        $path=$imageName;
+        $request['pdf']=$base64_image;
+        $request['certificado']=$path;
+
         Table::findOrFail($request->id)->update($request->all());
         return;
     }
