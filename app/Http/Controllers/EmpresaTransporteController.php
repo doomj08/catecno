@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\EmpresaTransporte;
+use App\EmpresaTransporte as Table;
 use App\Http\Requests\EmpresaRequest;
 use Illuminate\Http\Request;
 
@@ -16,79 +16,30 @@ class EmpresaTransporteController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $items=EmpresaTransporte::get();
+            $items=Table::get();
+            //$list=Curso::pluck('id','id')->toArray();
             return [
                 'tabla'=>$items,
-                'listas'=>[]
+                //  'listas'=>$list
             ];
         }
         return view('empresas.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(EmpresaRequest $request)
     {
-        EmpresaTransporte::create($request->all());
+        Table::create($request->all());
         return;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\EmpresaTransporte  $empresaTransporte
-     * @return \Illuminate\Http\Response
-     */
-    public function show(EmpresaTransporte $empresaTransporte)
+    public function update(EmpresaRequest $request)
     {
-        //
+        Table::findOrFail($request->id)->update($request->all());
+        return;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\EmpresaTransporte  $empresaTransporte
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(EmpresaTransporte $empresaTransporte)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\EmpresaTransporte  $empresaTransporte
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EmpresaTransporte $empresaTransporte)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\EmpresaTransporte  $empresaTransporte
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(EmpresaTransporte $empresaTransporte)
-    {
-        //
+        Table::findOrFail($id)->delete();
+        return;
     }
 }

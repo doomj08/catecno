@@ -58,6 +58,14 @@
                     :listas="listas"
                     @actualizardatos="consultar()"
             ></crear-component>
+            <editar-component
+                    :titulo=titulo
+                    :campos=campos
+                    :url="url"
+                    :listas="listas"
+                    @actualizardatos="consultar()"
+                    :camposeditados="camposeditados"
+            ></editar-component>
         </div>
     </div>
     <!-- /.container-fluid -->
@@ -91,6 +99,7 @@
                 listas:'',
                 errores:[],
                 cargando:true,
+                camposeditados:[]
             }
         },
         methods:{

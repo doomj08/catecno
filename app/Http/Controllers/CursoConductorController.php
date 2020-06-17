@@ -4,24 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Conductor;
 use App\Curso;
-use App\CursoConductor;
+use App\CursoConductor  as Table;
 use App\EmpresaTransporte;
 use App\Http\Requests\ConductorRequest;
 use Illuminate\Http\Request;
 
 class CursoConductorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if($request->ajax()){
-            $items=CursoConductor::with('Curso','EmpresaTransporte','Conductor')->orderby('id','asc')->get();
-            $list1=Conductor::pluck('Nombres','id');
-            $list2=EmpresaTransporte::pluck('Razon_social','id');
+            $items=Table::with('Curso','EmpresaTransporte','Conductor')->orderby('id','asc')->get();
+            $list1=Conductor::pluck('nombres','id');
+            $list2=EmpresaTransporte::pluck('razon_social','id');
             $list3=Curso::pluck('nombre','id');
             return [
                 'tabla'=>$items,
@@ -35,70 +30,21 @@ class CursoConductorController extends Controller
         return view('certificados.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ConductorRequest $request)
     {
-        Conductor::create($request->all()); //TODO:agregar valor predeterminado = 1 desde controlador al campo institucion_id
+        Table::create($request->all()); //TODO:agregar valor predeterminado = 1 desde controlador al campo institucion_id
         return;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\CursoConductor  $cursoConductor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CursoConductor $cursoConductor)
+    public function update(ConductorRequest $request)
     {
-        //
+        Table::findOrFail($request->id)->update($request->all());
+        return;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\CursoConductor  $cursoConductor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CursoConductor $cursoConductor)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CursoConductor  $cursoConductor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, CursoConductor $cursoConductor)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\CursoConductor  $cursoConductor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CursoConductor $cursoConductor)
-    {
-        //
+        Table::findOrFail($id)->delete();
+        return;
     }
 }
