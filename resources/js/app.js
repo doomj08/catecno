@@ -29,6 +29,7 @@ Vue.component('editar-component', require('./components/EditarComponent').defaul
 Vue.component('spinner-component', require('./components/SpinnerComponent').default);
 Vue.component('f-input-component', require('./components/InputComponent').default);
 Vue.component('pdf-component', require('./components/PdfComponent').default);
+Vue.component('certificado-component', require('./components/CertificadoComponent').default);
 Vue.component('file-component', require('./components/FileComponent').default);
 
 /**

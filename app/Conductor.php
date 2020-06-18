@@ -17,4 +17,11 @@ class Conductor extends Model
         'created_at' => 'datetime:d/M/Y', // Change your format
         'updated_at' => 'datetime:d/M/Y',
     ];
+
+    public function CursoConductor(){
+        return $this->hasMany('App\CursoConductor');
+    }
+    public function Institucion(){
+        return $this->belongsTo('App\Institucion');
+    }
 }

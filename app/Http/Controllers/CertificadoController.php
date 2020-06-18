@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Conductor;
 use App\CursoConductor;
 use App\Http\Requests\CertificadoRequest;;
+
+use App\Http\Requests\PdfRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +21,8 @@ class CertificadoController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('certificados');
     }
 
     /**
@@ -25,9 +30,26 @@ class CertificadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function certificados(Request $request)
     {
-        //
+
+        if($request->ajax()){
+            $date = Carbon::now();
+            $date = $date->format('Y-m-d');
+            $conductor=Conductor::where('cedula',$request->cedula)
+                ->with('CursoConductor','CursoConductor.Curso')
+                ->with('Institucion')
+                ->get()->first();
+            return $conductor;
+            if(!$conductor)
+                $conductor=Conductor::where('cedula',$request->cedula)->with('Institucion')->get()->first();
+
+            if(!$conductor){
+                return response()->json(['conductor'=>'','message'=>'El número del documento no se encuentra registrado.']);
+            }else{
+                return response()->json(['conductor'=>$conductor,'message'=>'']);
+            }
+        }
     }
 
     /**
@@ -36,9 +58,18 @@ class CertificadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PdfRequest $request)
     {
-        //
+        //return $request->cedula;
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+        $conductor=Conductor::where('cedula',$request->cedula)
+            ->with('CursoConductor','CursoConductor.Curso')
+            ->with('Institucion')
+            ->get()->first();
+        if(!$conductor)
+            $conductor=Conductor::where('cedula',$request->cedula)->with('Institucion')->get()->first();
+        return $conductor;
     }
 
     /**
