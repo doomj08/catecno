@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Conductor extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
     protected $table="conductores";
 

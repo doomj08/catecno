@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CursoConductor extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
     protected $table="curso_conductores";
     protected $hidden=["pdf"];

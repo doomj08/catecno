@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmpresaTransporte extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
     protected $fillable=['razon_social'];
 }

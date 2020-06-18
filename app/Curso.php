@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Curso extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
     protected $fillable=['nombre'];
 }
