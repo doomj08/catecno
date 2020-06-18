@@ -102,7 +102,6 @@
                     formData
                 ).then(
                     (res)=>{
-                        console.log(res)
                         this.limpiarparametros();
                         this.$emit('actualizardatos');
                         $('#create'+titulo).modal('hide');

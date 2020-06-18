@@ -46,8 +46,6 @@
                 }
             },
             limpiarparametros(){
-                for (var i = 0; i < this.campos.length; i++)
-                    this.campos[i].value='';
                 this.parametros = '';
                 this.errores=[];
             },
@@ -61,30 +59,13 @@
                         }
                 axios.put(
                     this.url,
-                    {file:this.selectedFile},config
+                    {file:this.selectedFile}
                 ).then(
                     (res)=>{
-                        console.log(res)
                         this.limpiarparametros();
                         this.$emit('actualizardatos');
                         $('#subirpdf').modal('hide');
-                        swal.fire('Registro creado','Los datos fueron creados correctamente','success');
-                    }).catch(e=>{
-                    console.log(e.response)
-                    this.errores=e.response.data.errors;
-                })
-            },
-            crear2(){
-                let formData = new FormData();
-                formData.append('certificado', this.selectedFile);
-
-                axios.put(this.url,formData
-                ).then(
-                    (res)=>{
-                        console.log(res)
-                        this.limpiarparametros();
-                        $('#pdf'+titulo).modal('hide');
-                        swal.fire('Registro creado','Los datos fueron creados correctamente','success');
+                        swal.fire('Certificado cargado correctamente','El certificado ha sido cargado satisfactoriamente','success');
                     }).catch(e=>{
                     this.errores=e.response.data.errors;
                 })
