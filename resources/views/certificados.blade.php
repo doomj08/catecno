@@ -26,7 +26,7 @@
 <div id="app">
     <certificado-component
         titulo="Consulte su certificado"
-        url="pdf/"
+        url="/pdf"
     ></certificado-component>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>

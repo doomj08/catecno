@@ -10,6 +10,7 @@ class CursoConductor extends Model
     use SoftDeletes;
 
     protected $table="curso_conductores";
+    protected $hidden=["pdf"];
 
     protected $fillable=['curso_id','empresa_transporte_id','conductor_id','carnet','fecha_ingreso','fecha_vence','pdf','certificado'];
 
