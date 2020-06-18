@@ -4,7 +4,6 @@
             <div class="modal-content" enctype="multipart/form-data">
                 <div class="modal-header">
                     <label for="nombre" class="text-uppercase font-weight-bold col-xl-10">Crear {{titulo}}</label>
-                    {{file}}
                     <button type="button" class="close col-xl-2" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
@@ -19,8 +18,6 @@
                     >
                         <span class="text-danger span" v-for="error in errores[campo.nombre]">{{error}}</span>
                     </f-input-component>
-                    <input v-else type="file" @change="cargar"/>
-
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-primary" value="Guardar" @click="crear(titulo)">
@@ -94,9 +91,7 @@
                 this.errores=[];
             },
             crear(titulo){
-                this.llenarparametros()
                 const formData = new FormData();
-                //formData.append("certificado", this.selectedFile);  // appending file
                 for (var i = 0; i < this.campos.length; i++)
                     if(this.campos[i].tipo!='File')
                         formData.append(this.campos[i].nombre, this.campos[i].value);  // appending file
@@ -108,10 +103,9 @@
                 ).then(
                     (res)=>{
                         console.log(res)
-                        //this.limpiarparametros();
-                        //this.$emit('actualizardatos');
-
-                       // $('#create'+titulo).modal('hide');
+                        this.limpiarparametros();
+                        this.$emit('actualizardatos');
+                        $('#create'+titulo).modal('hide');
                         swal.fire('Registro creado','Los datos fueron creados correctamente','success');
                     }).catch(e=>{
                         console.log(e.response)

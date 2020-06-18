@@ -39,6 +39,11 @@
                                 {{item[columna.nombre][columna.subcolumna]}} {{item[columna.nombre][columna.subcolumna2]}}
                             </td>
                             <td v-else-if="item[columna.nombre]&&columna.subcolumna">{{item[columna.nombre][columna.subcolumna]}}</td>
+                            <td v-else-if="columna.urlarchivo">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#subirpdf" @click="modalpdf(columna.urlarchivo,item['id'])">
+                                    Launch demo modal
+                                </button>
+                            </td>
                             <td v-else>{{item[columna.nombre]}}</td>
                             <td class="inline-block">
                                 <button class="btn btn-primary btn-circle " @click="editarcampos(item)"><i class="fa fa-edit"></i></button>
@@ -66,6 +71,10 @@
                     @actualizardatos="consultar()"
                     :camposeditados="camposeditados"
             ></editar-component>
+            <pdf-component
+                :url="urlpdf"
+                @actualizardatos="consultar()"
+            ></pdf-component>
         </div>
     </div>
     <!-- /.container-fluid -->
@@ -99,11 +108,11 @@
                 listas:'',
                 errores:[],
                 cargando:true,
-                camposeditados:[]
+                camposeditados:[],
+                urlpdf:''
             }
         },
         methods:{
-
             consultar(){
                 this.cargando=true;
                 axios.get(this.url)
@@ -117,10 +126,12 @@
                         this.errores=e.response.data.errors;
                     });
             },
+            modalpdf(url,item){
+                this.urlpdf=url+'/'+item;
+                $('#subirpdf').modal('show');
+            },
             editarcampos(item){
                 this.camposeditados=item
-                console.log(item)
-                console.log(this.camposeditados)
                 $('#editcomponent').modal('show');
             },
             eliminar(id){

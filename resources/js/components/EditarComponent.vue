@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <div v-for="(campo,key) in campos" :key="key">
-                    <f-input-component
+                    <f-input-component v-if="campo.tipo!='File'"
                             :label="campo.nombre"
                             :type="campo.tipo"
                             :lista="listas[campo.opciones]"
@@ -58,15 +58,16 @@
                 errores:[],
                 parametros:[],
                 editarcampos:[],
-                file:''
+                file:'',
+                selectedFile:''
             }
         },
         methods:{
-            cargarEdicion(eEdicion){
+            cargar(e){
                 var fileReader=new FileReader()
-                fileReader.readAsDataURL(eEdicion.target.files[0])
-                fileReader.onload = (eEdicion)=>{
-                    this.edicion_certiticado=eEdicion.target.result
+                fileReader.readAsDataURL(e.target.files[0])
+                fileReader.onload = (e)=>{
+                    this.selectedFile=e.target.result
                 }
             },
             llenarparametros(){
@@ -78,6 +79,12 @@
                 this.errores="";
             },
             editar(id){
+                const formData = new FormData();
+                for (var i = 0; i < this.campos.length; i++)
+                    if(this.campos[i].tipo=='File')
+                        formData.append(this.campos[i].nombre, this.selectedFile);  // appending file
+
+
                 axios.put(this.url+'/'+this.camposeditados.id,this.camposeditados).then(
                     (res)=>{
                         this.$emit('actualizardatos');

@@ -28,3 +28,4 @@ Route::resource('cursos','CursoController');
 Route::resource('conductores','ConductorController');
 Route::resource('certificados','CursoConductorController');
 Route::resource('instituciones','InstitucionController');
+Route::resource('pdf','CertificadoController');

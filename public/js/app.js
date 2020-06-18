@@ -1937,9 +1937,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     titulo: {
@@ -2014,8 +2011,7 @@ __webpack_require__.r(__webpack_exports__);
     crear: function crear(titulo) {
       var _this2 = this;
 
-      this.llenarparametros();
-      var formData = new FormData(); //formData.append("certificado", this.selectedFile);  // appending file
+      var formData = new FormData();
 
       for (var i = 0; i < this.campos.length; i++) {
         if (this.campos[i].tipo != 'File') formData.append(this.campos[i].nombre, this.campos[i].value); // appending file
@@ -2024,10 +2020,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
       axios.post(this.url, formData).then(function (res) {
-        console.log(res); //this.limpiarparametros();
-        //this.$emit('actualizardatos');
-        // $('#create'+titulo).modal('hide');
+        console.log(res);
 
+        _this2.limpiarparametros();
+
+        _this2.$emit('actualizardatos');
+
+        $('#create' + titulo).modal('hide');
         swal.fire('Registro creado', 'Los datos fueron creados correctamente', 'success');
       })["catch"](function (e) {
         console.log(e.response);
@@ -2112,18 +2111,19 @@ __webpack_require__.r(__webpack_exports__);
       errores: [],
       parametros: [],
       editarcampos: [],
-      file: ''
+      file: '',
+      selectedFile: ''
     };
   },
   methods: {
-    cargarEdicion: function cargarEdicion(eEdicion) {
+    cargar: function cargar(e) {
       var _this = this;
 
       var fileReader = new FileReader();
-      fileReader.readAsDataURL(eEdicion.target.files[0]);
+      fileReader.readAsDataURL(e.target.files[0]);
 
-      fileReader.onload = function (eEdicion) {
-        _this.edicion_certiticado = eEdicion.target.result;
+      fileReader.onload = function (e) {
+        _this.selectedFile = e.target.result;
       };
     },
     llenarparametros: function llenarparametros() {},
@@ -2134,6 +2134,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     editar: function editar(id) {
       var _this2 = this;
+
+      var formData = new FormData();
+
+      for (var i = 0; i < this.campos.length; i++) {
+        if (this.campos[i].tipo == 'File') formData.append(this.campos[i].nombre, this.selectedFile);
+      } // appending file
+
 
       axios.put(this.url + '/' + this.camposeditados.id, this.camposeditados).then(function (res) {
         _this2.$emit('actualizardatos');
@@ -2205,30 +2212,127 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    titulo: {
+      type: String,
+      "default": 'Nombre de la tabla'
+    },
+    url: {
+      type: String,
+      "default": '/'
+    },
+    campos: {
+      type: Array,
+      "default": []
+    },
+    listas: {
+      type: Array,
+      "default": []
+    }
+  },
   data: function data() {
     return {
-      selectedFile: ""
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      errores: [],
+      parametros: [],
+      parametros2: [],
+      file: '',
+      selectedFile: ''
     };
   },
   methods: {
-    onFileChange: function onFileChange(e) {
-      var selectedFile = e.target.files[0]; // accessing file
+    cargar: function cargar(e) {
+      var _this = this;
 
-      this.selectedFile = selectedFile;
-      this.$emit('fileupdate', selectedFile); // 1. Emitting
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(e.target.files[0]);
+
+      fileReader.onload = function (e) {
+        _this.selectedFile = e.target.result;
+      };
     },
-    onUploadFile: function onUploadFile() {
+    llenarparametros: function llenarparametros() {
+      var config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      var jsonTexto = '{';
+
+      for (var i = 0; i < this.campos.length; i++) {
+        if (this.campos[i].tipo == 'File') jsonTexto = jsonTexto + '"' + this.campos[i].nombre + '":"' + this.selectedFile + '",';else jsonTexto = jsonTexto + '"' + this.campos[i].nombre + '":"' + this.campos[i].value + '",';
+      }
+
+      jsonTexto = jsonTexto + '"Content-Type":"multipart/form-data",';
+      jsonTexto = jsonTexto + '"_token":"' + this.csrf + '"}';
+      console.log(jsonTexto);
+      this.parametros = JSON.parse(jsonTexto); //conversion ok
+    },
+    limpiarparametros: function limpiarparametros() {
+      for (var i = 0; i < this.campos.length; i++) {
+        this.campos[i].value = '';
+      }
+
+      this.parametros = '';
+      this.errores = [];
+      var input = document.getElementById("file");
+      input.value = '';
+    },
+    crear: function crear(titulo) {
+      var _this2 = this;
+
+      //this.llenarparametros()
       var formData = new FormData();
-      formData.append("file", this.selectedFile); // appending file
 
-      console.log(formData); // sending file to the backend
+      for (var i = 0; i < this.campos.length; i++) {
+        if (this.campos[i].tipo != 'File') formData.append(this.campos[i].nombre, this.campos[i].value); // appending file
+        else formData.append(this.campos[i].nombre, this.selectedFile);
+      } // appending file
 
-      axios.post("http://localhost:4500/upload", formData).then(function (res) {
+
+      axios.post(this.url, formData).then(function (res) {
         console.log(res);
-      })["catch"](function (err) {
-        console.log(err);
+
+        _this2.limpiarparametros();
+
+        _this2.$emit('actualizardatos');
+
+        $('#create' + titulo).modal('hide');
+        swal.fire('Registro creado', 'Los datos fueron creados correctamente', 'success');
+      })["catch"](function (e) {
+        console.log(e.response);
+        _this2.errores = e.response.data.errors;
       });
+    },
+    handleFileUpload: function handleFileUpload(key) {
+      //console.log(key)
+      this.campos[key].value = this.$refs.file.files[0];
+      console.log(this.campos[key]); //this.file = this.$refs.file.files[0];
     }
   }
 });
@@ -2363,6 +2467,122 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changevalue: function changevalue() {
       this.$emit('updatemodel', this.value); // 1. Emitting
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PdfComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    titulo: {
+      type: String,
+      "default": 'Nombre de la tabla'
+    },
+    url: {
+      type: String,
+      "default": '/'
+    }
+  },
+  data: function data() {
+    return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      errores: [],
+      selectedFile: '',
+      headers: {
+        "Content-Type": "text/plain"
+      }
+    };
+  },
+  methods: {
+    cargar: function cargar(e) {
+      var _this = this;
+
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(e.target.files[0]);
+
+      fileReader.onload = function (e) {
+        _this.selectedFile = e.target.result;
+      };
+    },
+    limpiarparametros: function limpiarparametros() {
+      for (var i = 0; i < this.campos.length; i++) {
+        this.campos[i].value = '';
+      }
+
+      this.parametros = '';
+      this.errores = [];
+    },
+    crear: function crear() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append('file', this.selectedFile); // appending file
+
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      axios.put(this.url, {
+        file: this.selectedFile
+      }, config).then(function (res) {
+        console.log(res);
+
+        _this2.limpiarparametros();
+
+        _this2.$emit('actualizardatos');
+
+        $('#subirpdf').modal('hide');
+        swal.fire('Registro creado', 'Los datos fueron creados correctamente', 'success');
+      })["catch"](function (e) {
+        console.log(e.response);
+        _this2.errores = e.response.data.errors;
+      });
+    },
+    crear2: function crear2() {
+      var _this3 = this;
+
+      var formData = new FormData();
+      formData.append('certificado', this.selectedFile);
+      axios.put(this.url, formData).then(function (res) {
+        console.log(res);
+
+        _this3.limpiarparametros();
+
+        $('#pdf' + titulo).modal('hide');
+        swal.fire('Registro creado', 'Los datos fueron creados correctamente', 'success');
+      })["catch"](function (e) {
+        _this3.errores = e.response.data.errors;
+      });
     }
   }
 });
@@ -2606,6 +2826,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     titulo: {
@@ -2637,7 +2866,8 @@ __webpack_require__.r(__webpack_exports__);
       listas: '',
       errores: [],
       cargando: true,
-      camposeditados: []
+      camposeditados: [],
+      urlpdf: ''
     };
   },
   methods: {
@@ -2654,10 +2884,12 @@ __webpack_require__.r(__webpack_exports__);
         _this.errores = e.response.data.errors;
       });
     },
+    modalpdf: function modalpdf(url, item) {
+      this.urlpdf = url + '/' + item;
+      $('#subirpdf').modal('show');
+    },
     editarcampos: function editarcampos(item) {
       this.camposeditados = item;
-      console.log(item);
-      console.log(this.camposeditados);
       $('#editcomponent').modal('show');
     },
     eliminar: function eliminar(id) {
@@ -42340,9 +42572,7 @@ var render = function() {
                 },
                 [_vm._v("Crear " + _vm._s(_vm.titulo))]
               ),
-              _vm._v(
-                "\n                " + _vm._s(_vm.file) + "\n                "
-              ),
+              _vm._v(" "),
               _vm._m(0)
             ]),
             _vm._v(" "),
@@ -42378,10 +42608,7 @@ var render = function() {
                         }),
                         0
                       )
-                    : _c("input", {
-                        attrs: { type: "file" },
-                        on: { change: _vm.cargar }
-                      })
+                    : _vm._e()
                 ],
                 1
               )
@@ -42468,31 +42695,35 @@ var render = function() {
                 "div",
                 { key: key },
                 [
-                  _c(
-                    "f-input-component",
-                    {
-                      class: campo.class,
-                      attrs: {
-                        label: campo.nombre,
-                        type: campo.tipo,
-                        lista: _vm.listas[campo.opciones],
-                        valorheredado: _vm.camposeditados[campo.nombre]
-                      },
-                      model: {
-                        value: _vm.camposeditados[campo.nombre],
-                        callback: function($$v) {
-                          _vm.$set(_vm.camposeditados, campo.nombre, $$v)
+                  campo.tipo != "File"
+                    ? _c(
+                        "f-input-component",
+                        {
+                          class: campo.class,
+                          attrs: {
+                            label: campo.nombre,
+                            type: campo.tipo,
+                            lista: _vm.listas[campo.opciones],
+                            valorheredado: _vm.camposeditados[campo.nombre]
+                          },
+                          model: {
+                            value: _vm.camposeditados[campo.nombre],
+                            callback: function($$v) {
+                              _vm.$set(_vm.camposeditados, campo.nombre, $$v)
+                            },
+                            expression: "camposeditados[campo.nombre]"
+                          }
                         },
-                        expression: "camposeditados[campo.nombre]"
-                      }
-                    },
-                    _vm._l(_vm.errores[campo.nombre], function(error) {
-                      return _c("span", { staticClass: "text-danger span" }, [
-                        _vm._v(_vm._s(error))
-                      ])
-                    }),
-                    0
-                  )
+                        _vm._l(_vm.errores[campo.nombre], function(error) {
+                          return _c(
+                            "span",
+                            { staticClass: "text-danger span" },
+                            [_vm._v(_vm._s(error))]
+                          )
+                        }),
+                        0
+                      )
+                    : _vm._e()
                 ],
                 1
               )
@@ -42599,19 +42830,107 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "file-upload" }, [
-    _c("input", {
-      attrs: { type: "file" },
-      on: {
-        change: _vm.onFileChange,
-        input: function($event) {
-          return _vm.$emit("input", $event.target.value)
-        }
-      }
-    })
-  ])
+  return _c(
+    "div",
+    { staticClass: "modal fade", attrs: { id: "create" + _vm.titulo } },
+    [
+      _c("div", { staticClass: "modal-dialog" }, [
+        _c(
+          "div",
+          {
+            staticClass: "modal-content",
+            attrs: { enctype: "multipart/form-data" }
+          },
+          [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "text-uppercase font-weight-bold col-xl-10",
+                  attrs: { for: "nombre" }
+                },
+                [_vm._v("Crear " + _vm._s(_vm.titulo))]
+              ),
+              _vm._v(
+                "\n                " + _vm._s(_vm.file) + "\n                "
+              ),
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.campos, function(campo, key) {
+              return _c(
+                "div",
+                { key: key },
+                [
+                  campo.tipo != "File"
+                    ? _c(
+                        "f-input-component",
+                        {
+                          class: campo.class,
+                          attrs: {
+                            label: campo.nombre,
+                            type: campo.tipo,
+                            lista: _vm.listas[campo.opciones]
+                          },
+                          model: {
+                            value: campo.value,
+                            callback: function($$v) {
+                              _vm.$set(campo, "value", $$v)
+                            },
+                            expression: "campo.value"
+                          }
+                        },
+                        _vm._l(_vm.errores[campo.nombre], function(error) {
+                          return _c(
+                            "span",
+                            { staticClass: "text-danger span" },
+                            [_vm._v(_vm._s(error))]
+                          )
+                        }),
+                        0
+                      )
+                    : _c("input", {
+                        attrs: { id: "file", type: "file" },
+                        on: { change: _vm.cargar }
+                      })
+                ],
+                1
+              )
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c("input", {
+                staticClass: "btn btn-primary",
+                attrs: { type: "submit", value: "Guardar" },
+                on: {
+                  click: function($event) {
+                    return _vm.crear(_vm.titulo)
+                  }
+                }
+              })
+            ])
+          ],
+          2
+        )
+      ])
+    ]
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close col-xl-2",
+        attrs: { type: "button", "data-dismiss": "modal" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -42712,6 +43031,82 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfComponent.vue?vue&type=template&id=6ff43ad4&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PdfComponent.vue?vue&type=template&id=6ff43ad4& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "modal fade", attrs: { id: "subirpdf" } }, [
+    _c("div", { staticClass: "modal-dialog" }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal-content",
+          attrs: { enctype: "multipart/form-data" }
+        },
+        [
+          _c("div", { staticClass: "modal-header" }, [
+            _c(
+              "label",
+              {
+                staticClass: "text-uppercase font-weight-bold col-xl-10",
+                attrs: { for: "nombre" }
+              },
+              [_vm._v("Crear " + _vm._s(_vm.titulo))]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+          _vm._v(" "),
+          _c("input", { attrs: { type: "file" }, on: { change: _vm.cargar } }),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c("input", {
+              staticClass: "btn btn-primary",
+              attrs: { value: "Guardar" },
+              on: {
+                click: function($event) {
+                  return _vm.crear(_vm.titulo)
+                }
+              }
+            })
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close col-xl-2",
+        attrs: { type: "button", "data-dismiss": "modal" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -43231,6 +43626,33 @@ var render = function() {
                                       )
                                     )
                                   ])
+                                : columna.urlarchivo
+                                ? _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-primary",
+                                        attrs: {
+                                          type: "button",
+                                          "data-toggle": "modal",
+                                          "data-target": "#subirpdf"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.modalpdf(
+                                              columna.urlarchivo,
+                                              item["id"]
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                Launch demo modal\n                            "
+                                        )
+                                      ]
+                                    )
+                                  ])
                                 : _c("td", [
                                     _vm._v(_vm._s(item[columna.nombre]))
                                   ])
@@ -43300,6 +43722,15 @@ var render = function() {
               listas: _vm.listas,
               camposeditados: _vm.camposeditados
             },
+            on: {
+              actualizardatos: function($event) {
+                return _vm.consultar()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("pdf-component", {
+            attrs: { url: _vm.urlpdf },
             on: {
               actualizardatos: function($event) {
                 return _vm.consultar()
@@ -71327,6 +71758,7 @@ Vue.component('crear-component', __webpack_require__(/*! ./components/CrearCompo
 Vue.component('editar-component', __webpack_require__(/*! ./components/EditarComponent */ "./resources/js/components/EditarComponent.vue")["default"]);
 Vue.component('spinner-component', __webpack_require__(/*! ./components/SpinnerComponent */ "./resources/js/components/SpinnerComponent.vue")["default"]);
 Vue.component('f-input-component', __webpack_require__(/*! ./components/InputComponent */ "./resources/js/components/InputComponent.vue")["default"]);
+Vue.component('pdf-component', __webpack_require__(/*! ./components/PdfComponent */ "./resources/js/components/PdfComponent.vue")["default"]);
 Vue.component('file-component', __webpack_require__(/*! ./components/FileComponent */ "./resources/js/components/FileComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -71821,6 +72253,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InputComponent_vue_vue_type_template_id_1e6111fe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InputComponent_vue_vue_type_template_id_1e6111fe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PdfComponent.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/PdfComponent.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PdfComponent_vue_vue_type_template_id_6ff43ad4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PdfComponent.vue?vue&type=template&id=6ff43ad4& */ "./resources/js/components/PdfComponent.vue?vue&type=template&id=6ff43ad4&");
+/* harmony import */ var _PdfComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PdfComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/PdfComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PdfComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PdfComponent_vue_vue_type_template_id_6ff43ad4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PdfComponent_vue_vue_type_template_id_6ff43ad4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PdfComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PdfComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/PdfComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PdfComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PdfComponent.vue?vue&type=template&id=6ff43ad4&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/PdfComponent.vue?vue&type=template&id=6ff43ad4& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfComponent_vue_vue_type_template_id_6ff43ad4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PdfComponent.vue?vue&type=template&id=6ff43ad4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfComponent.vue?vue&type=template&id=6ff43ad4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfComponent_vue_vue_type_template_id_6ff43ad4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfComponent_vue_vue_type_template_id_6ff43ad4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
