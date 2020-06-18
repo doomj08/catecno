@@ -40,9 +40,12 @@
                             </td>
                             <td v-else-if="item[columna.nombre]&&columna.subcolumna">{{item[columna.nombre][columna.subcolumna]}}</td>
                             <td v-else-if="columna.urlarchivo">
-                                <button type="button" v-if="item[columna.nombre]" class="btn btn-success col-sm-12" @click="modalpdf(columna.urlarchivo,item['id'])">
+                                <a :href="'pdf/'+item[columna.nombre]">
+                                <button type="button" v-if="item[columna.nombre]" class="btn btn-success col-sm-12">
                                     Ver certificado
+                                    {{item[columna.nombre]}}
                                 </button>
+                                </a>
                                 <button type="button" class="btn btn-primary col-sm-12"  @click="modalpdf(columna.urlarchivo,item['id'])">
                                     Cargar PDF
                                 </button>

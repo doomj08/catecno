@@ -20,7 +20,8 @@ class CreateCursoConductoresTable extends Migration
             $table->unsignedInteger('conductor_id');
             $table->foreign('conductor_id')->references('id')->on('conductores');
             $table->string('carnet',12);
-            $table->string('certificado',255)->default('');
+            $table->string('certificado',20)->default('');
+            $table->longText('pdf',20)->default('');
             $table->date('fecha_ingreso');
             $table->date('fecha_vence');
             $table->unsignedInteger('empresa_transporte_id');

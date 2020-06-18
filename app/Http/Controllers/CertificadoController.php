@@ -49,7 +49,13 @@ class CertificadoController extends Controller
      */
     public function show($id)
     {
-        //
+            $conductor=CursoConductor::where('certificado',$id)->get()->first();
+        //return $conductor;
+        if(!$conductor){
+            return response()->json(['conductor'=>'','message'=>'El número del documento no se encuentra registrado.']);
+        }else{
+            return Storage::disk('certificados')->download($conductor->certificado);
+        }
     }
 
     /**
