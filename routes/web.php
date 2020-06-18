@@ -22,13 +22,11 @@ Route::get('/panel', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::resource('empresas','EmpresaTransporteController');
-    Route::resource('cursos','CursoController');
-    Route::resource('conductores','ConductorController');
-    Route::resource('certificados','CursoConductorController');
-    Route::resource('instituciones','InstitucionController');
-});
+Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('empresas','EmpresaTransporteController');
+Route::resource('cursos','CursoController');
+Route::resource('conductores','ConductorController');
+Route::resource('certificados','CursoConductorController');
+Route::resource('instituciones','InstitucionController');
 Route::resource('pdf','CertificadoController');
 Route::get('consulta/{id}','CertificadoController@certificados');
