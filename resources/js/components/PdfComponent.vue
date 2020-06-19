@@ -11,7 +11,7 @@
                     <div class="componente" >
                         <div class="form">
                             <li>{{titulo}}</li>
-                            <input  type="file" @change="cargar"/>
+                            <input  type="file" id="filepdf" @change="cargar"/>
                             <span class="text-danger span" v-for="error in errores['file']">{{error}}</span>
                         </div>
                     </div>
@@ -102,6 +102,11 @@
             limpiarparametros(){
                 this.parametros = '';
                 this.errores=[];
+                var input = $('#filepdf');
+                var clon = input.clone();  // Creamos un clon del elemento original
+                input.replaceWith(clon);   // Y sustituimos el original por el clon
+                this.selectedFile=''
+
             },
             crear(){
                 const formData = new FormData();

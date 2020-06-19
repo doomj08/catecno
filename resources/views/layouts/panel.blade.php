@@ -25,7 +25,14 @@
 <!-- Page Wrapper -->
 <div id="app">
 <div id="wrapper">
-    <sidebar-component></sidebar-component>
+    <sidebar-component
+            :menu="[
+                    {name: 'CURSOS', link: 'cursos',icono:' fa-graduation-cap'},
+                    {name: 'CONDUCTORES', link: 'conductores',icono:'fa-id-badge'},
+                    {name: ' EMPRESAS DE TRANSPORTE', link: 'empresas',icono:'fa-industry'},
+                    {name: 'CERTIFICADOS', link: 'certificados',icono:'fa-file-alt'},
+                    ]"
+    ></sidebar-component>
     <div id="content-wrapper" class="d-flex flex-column">
         <topbar-component></topbar-component>
         <div id="content">
