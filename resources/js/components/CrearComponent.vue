@@ -12,6 +12,7 @@
                     <f-input-component v-if="campo.tipo!='File'"
                                        :label="campo.nombre"
                                        :type="campo.tipo"
+                                       :value="campo.value"
                                        v-model="campo.value"
                                        :lista="listas[campo.opciones]"
                                        :class="campo.class"
@@ -97,9 +98,11 @@
                         formData.append(this.campos[i].nombre, this.campos[i].value);  // appending file
                     else
                         formData.append(this.campos[i].nombre, this.selectedFile);  // appending file
+
+                        formData.append('_token', this.csrf);  // appending file
                 axios.post(
                     this.url,
-                    formData
+                    formData,
                 ).then(
                     (res)=>{
                         this.limpiarparametros();

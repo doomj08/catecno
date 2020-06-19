@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Conductor as Table;
 use App\Http\Requests\ConductorRequest;
+use App\Institucion;
 use Illuminate\Http\Request;
 
 class ConductorController extends Controller
@@ -12,9 +13,11 @@ class ConductorController extends Controller
     {
         if($request->ajax()){
             $items=Table::get();
+            $instituciones=Institucion::pluck('nombre','id');;
             return [
                 'tabla'=>$items,
                 'listas'=>[
+                    'instituciones'=>$instituciones
                 ]
             ];
         }

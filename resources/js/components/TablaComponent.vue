@@ -38,8 +38,14 @@
                             >
                                 {{item[columna.nombre][columna.subcolumna]}} {{item[columna.nombre][columna.subcolumna2]}}
                             </td>
-                            <td v-else-if="item[columna.nombre]&&columna.subcolumna">{{item[columna.nombre][columna.subcolumna]}}</td>
-                            <td v-else-if="columna.urlarchivo">
+                            <td  v-else-if="item[columna.nombre]&&columna.subcolumna"
+                                 class="uppercase"
+                            >
+                                {{item[columna.nombre][columna.subcolumna]}}
+                            </td>
+                            <td v-else-if="columna.urlarchivo"
+                                 class="uppercase"
+                            >
                                 <a :href="'pdf/'+item[columna.nombre]">
                                 <button type="button" v-if="item[columna.nombre]" class="btn btn-success col-sm-12">
                                     Ver certificado
@@ -50,8 +56,12 @@
                                     Cargar PDF
                                 </button>
                             </td>
-                            <td v-else>{{item[columna.nombre]}}</td>
-                            <td class="inline-block">
+                            <td v-else
+                                class="uppercase"
+                            >
+                                {{item[columna.nombre]}}
+                            </td>
+                            <td class="uppercase inline-block">
                                 <button class="btn btn-primary btn-circle " @click="editarcampos(item)"><i class="fa fa-edit"></i></button>
                                 <button class="btn btn-danger btn-circle "  @click="eliminar(item.id)"><i class="fa fa-recycle"></i></button>
                             </td>
@@ -87,7 +97,11 @@
 
 
 </template>
-
+<style scoped>
+    .uppercase{
+        text-transform: uppercase;
+    }
+</style>
 <script>
     export default {
         props:{

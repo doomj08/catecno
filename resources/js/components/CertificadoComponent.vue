@@ -33,6 +33,7 @@
                                 <li>Curso: {{curso.curso.nombre}}</li>
                                 <li>Carnet: {{curso.carnet}}</li>
                                 <li>Fecha de inicio: {{curso.fecha_ingreso}}</li>
+                                <li>Fecha de vencimiento: {{curso.fecha_vence}}</li>
                                 <li>
                                     <a :href="url+'/'+curso.certificado" v-if="curso.certificado">Descargar certificado</a>
                                 </li>

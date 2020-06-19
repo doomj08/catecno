@@ -8,7 +8,6 @@
             </div>
             <div class="sidebar-brand-text mx-3">Itcomn <sup>2</sup></div>
         </a>
-
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
@@ -18,6 +17,7 @@
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Panel de control</span>
                 <hr class="sidebar-divider my-0">
+            </a>
         </li>
 
         <hr class="sidebar-divider">

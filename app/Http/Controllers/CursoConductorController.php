@@ -16,8 +16,8 @@ class CursoConductorController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $items=Table::with('Curso','EmpresaTransporte','Conductor')->orderby('id','asc')->get();
-            $list1=Conductor::pluck('nombres','id');
+            $items=Table::with('Curso','EmpresaTransporte','Conductor')->orderby('id','desc')->get();
+            $list1=Conductor::get()->pluck('nombre_cedula','id');
             $list2=EmpresaTransporte::pluck('razon_social','id');
             $list3=Curso::pluck('nombre','id');
             return [

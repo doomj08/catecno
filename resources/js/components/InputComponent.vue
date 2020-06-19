@@ -2,8 +2,8 @@
     <div class="componente" >
         <div class="form">
             <li>{{label}}</li>
-            <select class="campo" v-if="type=='Select'" :value="value" :type="type"
-                   v-on:input="$emit('input', $event.target.value)"
+            <select class="campo" v-if="type=='Select'" :value="value" :type="type" v-model="value"
+                   v-on:select="$emit('input', $event.target.value)"
             >
                 <option>...</option>
                 <option v-for="(item,key) in lista" :value="key">{{item}}</option>
