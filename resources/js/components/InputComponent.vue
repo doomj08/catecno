@@ -3,10 +3,10 @@
         <div class="form">
             <li>{{label}}</li>
             <select class="campo" v-if="type=='Select'" :value="value" :type="type" v-model="value"
-                   v-on:select="$emit('input', $event.target.value)"
+                   v-on:input="$emit('input', $event.target.value)"
             >
                 <option>...</option>
-                <option v-for="(item,key) in lista" :value="key">{{item}}</option>
+                <option v-for="(item,key) in lista" :value="item">{{key}}</option>
             </select>
             <input class="campo" v-else :value="value" :type="type"
                     v-on:input="$emit('input', $event.target.value)"
@@ -42,7 +42,7 @@
         border-style: solid;
         border-color:  rgba(29, 104, 167, 0.81);
         background: transparent;
-        text-transform: uppercase;
+
     }
     input{
         border-top: 0px;

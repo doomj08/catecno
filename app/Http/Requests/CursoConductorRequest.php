@@ -85,12 +85,13 @@ class   CursoConductorRequest extends FormRequest
     {
         return [
             'empresa_id.required' => 'Es obligatorio elegir una empresa',
-            'conductor_id.required' => 'Es obligatorio elegir un conductor',
-            'curso_id.required' => 'Es obligatorio elegir un curso',
+            'conductor_id.required' => 'Seleccione un conductor. *obligatorio',
+            'curso_id.required' => 'Seleccione un curso. *obligatorio',
             'carnet.required' => 'El código de carnet es un campo obligatorio',
             'carnet.unique' => 'Este carnet ya ha sido asignado anteriormente',
             'fecha_ingreso.required' => 'La fecha de inicio es un campo obligatorio',
             'fecha_vence.required' => 'La fecha de vencimiento es un campo obligatorio',
+            'empresa_transporte_id.required' => 'Seleccione una empresa de transporte. *obligatorio',
 
         ];
     }

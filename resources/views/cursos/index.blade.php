@@ -9,7 +9,6 @@
             {nombre:'nombre' ,alias:'NOMBRE DEL CURSO'},
             {nombre:'created_at' ,alias:'FECHA DE CREACIÓN'},
             {nombre:'updated_at' ,alias:'FECHA DE ACTUALIZACIÓN'},
-            {nombre:'updated_at' ,alias:'FECHA DE ACTUALIZACIÓN'},
         ]"
             :campos="[
             {nombre: 'nombre',                alias:'curso',          tipo: 'String', value:'',                  class:'col-sm-12'},

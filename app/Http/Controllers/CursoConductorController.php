@@ -17,9 +17,9 @@ class CursoConductorController extends Controller
     {
         if($request->ajax()){
             $items=Table::with('Curso','EmpresaTransporte','Conductor')->orderby('id','desc')->get();
-            $list1=Conductor::get()->pluck('nombre_cedula','id');
-            $list2=EmpresaTransporte::pluck('razon_social','id');
-            $list3=Curso::pluck('nombre','id');
+            $list1=Conductor::orderby('id','desc')->get()->pluck('id','nombre_cedula');
+            $list2=EmpresaTransporte::orderby('id','desc')->pluck('id','razon_social');
+            $list3=Curso::pluck('id','nombre');
             return [
                 'tabla'=>$items,
                 'listas'=>[
@@ -32,7 +32,7 @@ class CursoConductorController extends Controller
         return view('certificados.index');
     }
 
-    public function store(Request $request)
+    public function store(CursoConductorRequest $request)
     {
         Table::create($request->all());
         return;

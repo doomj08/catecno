@@ -13,7 +13,7 @@ class ConductorController extends Controller
     {
         if($request->ajax()){
             $items=Table::get();
-            $instituciones=Institucion::pluck('nombre','id');;
+            $instituciones=Institucion::pluck('id','nombre');
             return [
                 'tabla'=>$items,
                 'listas'=>[
