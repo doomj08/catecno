@@ -26,9 +26,15 @@
                         </div>
 
                         <div class="col-sm-12 col-md-6">
-                            <div class="row-cols-4">
-                                <input @change="consultar(1)" v-model="search" type="search" aria-controls="dataTable" class="form-control bg-light border-0 small col-md-8" placeholder="Buscar por...">
-                            </div>
+
+
+                                <div class="input-group-append col-12">
+                                    <input @change="consultar(1)" v-model="search" type="search" aria-controls="dataTable" class="form-control bg-white text-black-50 border-0 small col-8" placeholder="Buscar por...">
+                                    <button class="btn btn-primary" type="button" @change="consultar(1)">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+
                         </div>
 
                     </div>
@@ -74,7 +80,7 @@
                                 >
                                     <a :href="'pdf/'+item[columna.nombre]">
                                         <button type="button" v-if="item[columna.nombre]" class="btn btn-success  btn-sm col-sm-12">
-                                            Ver 
+                                            Ver
                                             {{item[columna.nombre]}}
                                         </button>
                                     </a>

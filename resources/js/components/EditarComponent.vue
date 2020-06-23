@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <label for="nombre" class="text-uppercase font-weight-bold col-xl-10">Editando {{titulo}}</label>
+                    <label class="text-uppercase font-weight-bold col-xl-10">Editando {{titulo}}</label>
                     <button type="button" class="close col-xl-2" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
@@ -16,6 +16,7 @@
                             :valorheredado="camposeditados[campo.nombre]"
                             v-model="camposeditados[campo.nombre]"
                             :class="campo.class"
+                            :url="campo.urlaux"
                     >
                         <span class="text-danger span" v-for="error in errores[campo.nombre]">{{error}}</span>
                     </f-input-component>
