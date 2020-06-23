@@ -3109,7 +3109,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     url: {
       type: String,
-      "default": '/#'
+      "default": '/'
+    },
+    mayus: {
+      type: Boolean,
+      "default": false
     },
     campos: {
       type: Array,
@@ -43977,96 +43981,112 @@ var render = function() {
                               return item[columna.nombre] &&
                                 columna.subcolumna &&
                                 columna.subcolumna2
-                                ? _c("td", { staticClass: "uppercase" }, [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(
-                                          item[columna.nombre][
-                                            columna.subcolumna
-                                          ]
-                                        ) +
-                                        " " +
-                                        _vm._s(
-                                          item[columna.nombre][
-                                            columna.subcolumna2
-                                          ]
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ])
+                                ? _c(
+                                    "td",
+                                    { class: _vm.mayus ? "uppercase" : "" },
+                                    [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(
+                                            item[columna.nombre][
+                                              columna.subcolumna
+                                            ]
+                                          ) +
+                                          " " +
+                                          _vm._s(
+                                            item[columna.nombre][
+                                              columna.subcolumna2
+                                            ]
+                                          ) +
+                                          "\n                        "
+                                      )
+                                    ]
+                                  )
                                 : item[columna.nombre] && columna.subcolumna
-                                ? _c("td", { staticClass: "uppercase" }, [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(
-                                          item[columna.nombre][
-                                            columna.subcolumna
-                                          ]
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ])
+                                ? _c(
+                                    "td",
+                                    { class: _vm.mayus ? "uppercase" : "" },
+                                    [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(
+                                            item[columna.nombre][
+                                              columna.subcolumna
+                                            ]
+                                          ) +
+                                          "\n                        "
+                                      )
+                                    ]
+                                  )
                                 : columna.urlarchivo
-                                ? _c("td", { staticClass: "uppercase" }, [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "pdf/" + item[columna.nombre]
-                                        }
-                                      },
-                                      [
-                                        item[columna.nombre]
-                                          ? _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "btn btn-success col-sm-12",
-                                                attrs: { type: "button" }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                                Ver certificado\n                                " +
-                                                    _vm._s(
-                                                      item[columna.nombre]
-                                                    ) +
-                                                    "\n                            "
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-primary col-sm-12",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.modalpdf(
-                                              columna.urlarchivo,
-                                              item["id"]
-                                            )
+                                ? _c(
+                                    "td",
+                                    { class: _vm.mayus ? "uppercase" : "" },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "pdf/" + item[columna.nombre]
                                           }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                Cargar PDF\n                            "
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                : _c("td", { staticClass: "uppercase" }, [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(item[columna.nombre]) +
-                                        "\n                        "
-                                    )
-                                  ])
+                                        },
+                                        [
+                                          item[columna.nombre]
+                                            ? _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "btn btn-success col-sm-12",
+                                                  attrs: { type: "button" }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                Ver certificado\n                                " +
+                                                      _vm._s(
+                                                        item[columna.nombre]
+                                                      ) +
+                                                      "\n                            "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-primary col-sm-12",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.modalpdf(
+                                                columna.urlarchivo,
+                                                item["id"]
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                Cargar PDF\n                            "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _c(
+                                    "td",
+                                    { class: _vm.mayus ? "uppercase" : "" },
+                                    [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(item[columna.nombre]) +
+                                          "\n                        "
+                                      )
+                                    ]
+                                  )
                             }),
                             _vm._v(" "),
                             _c(
@@ -71492,7 +71512,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof
       send: function send(e, t) {
         var n,
             r = i.xhr();
-        if (r.open(i.type, i.url, i.async, i.username, i.password), i.xhrFields) for (n in i.xhrFields) {
+        if (r.open(i.type, i.url, i.async, i.username, i.passwords), i.xhrFields) for (n in i.xhrFields) {
           r[n] = i.xhrFields[n];
         }
 

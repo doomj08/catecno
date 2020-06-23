@@ -9727,7 +9727,7 @@ jQuery.ajaxTransport( function( options ) {
 					options.url,
 					options.async,
 					options.username,
-					options.password
+					options.passwords
 				);
 
 				// Apply custom fields if provided

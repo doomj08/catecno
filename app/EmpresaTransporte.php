@@ -10,4 +10,8 @@ class EmpresaTransporte extends Model
     //use SoftDeletes;
 
     protected $fillable=['razon_social'];
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d', // Change your format
+        'updated_at' => 'datetime:Y-m-d',
+    ];
 }

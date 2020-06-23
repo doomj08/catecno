@@ -3,8 +3,10 @@
 
 
     <div class="content">
-        <div class="title m-b-md">
-            BIENVENIDO
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="h1">
+                BIENVENIDO
+            </div>
         </div>
     </div>
 

@@ -1,3 +1,8 @@
+@extends('layouts.app')
+@section('content')
+
+
+
         <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
     <title>SB Admin 2 - Login</title>
 
     <!-- Custom fonts for this template-->
@@ -42,7 +47,7 @@
                                 <form class="user" method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group">
-                                            <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('Enter Email Address') }}">
+                                        <input type="email" class="form-control form-control-user" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Enter Email Address...">
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -50,7 +55,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input  id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Contraseña">
+                                        <input  id="password" type="password" class="form-control form-control-user" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -65,6 +70,9 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                        Iniciar sesión
+                                    </a>
                                     <button type="submit" class="btn btn-primary  btn-user btn-block">
                                         {{ __('Login') }}
                                     </button>
@@ -72,13 +80,18 @@
                                 <hr>
                                 @guest
                                     <div class="text-center">
+                                        <a class="small" href="register.html">Create an Account!</a>
                                         @if (Route::has('register'))
                                             <a class="small" href="{{ route('register') }}">{{ __('Register') }}</a>
                                         @endif
                                     </div>
+
+
+
                                 @endguest
                                 @if (Route::has('password.request'))
                                     <div class="text-center">
+                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
@@ -112,6 +125,12 @@
 
 </html>
 
+
+
+
+
+
+@endsection()
 
 
 

@@ -33,18 +33,18 @@
                         <tbody >
                         <tr v-for="item in items" >
                             <td v-for="columna in columnas"
-                                class="uppercase"
+                                :class="(mayus)?'uppercase':''"
                                 v-if="item[columna.nombre]&&columna.subcolumna&&columna.subcolumna2"
                             >
                                 {{item[columna.nombre][columna.subcolumna]}} {{item[columna.nombre][columna.subcolumna2]}}
                             </td>
                             <td  v-else-if="item[columna.nombre]&&columna.subcolumna"
-                                 class="uppercase"
+                                 :class="(mayus)?'uppercase':''"
                             >
                                 {{item[columna.nombre][columna.subcolumna]}}
                             </td>
                             <td v-else-if="columna.urlarchivo"
-                                 class="uppercase"
+                                :class="(mayus)?'uppercase':''"
                             >
                                 <a :href="'pdf/'+item[columna.nombre]">
                                 <button type="button" v-if="item[columna.nombre]" class="btn btn-success col-sm-12">
@@ -57,7 +57,7 @@
                                 </button>
                             </td>
                             <td v-else
-                                class="uppercase"
+                                :class="(mayus)?'uppercase':''"
                             >
                                 {{item[columna.nombre]}}
                             </td>
@@ -111,7 +111,11 @@
             },
             url:{
                 type:String,
-                default:'/#'
+                default:'/'
+            },
+            mayus:{
+                type:Boolean,
+                default:false
             },
             campos:{
                 type:Array,
@@ -130,6 +134,7 @@
                 cargando:true,
                 camposeditados:[],
                 urlpdf:''
+
             }
         },
         methods:{

@@ -19,7 +19,7 @@ class CursoConductorController extends Controller
             $items=Table::with('Curso','EmpresaTransporte','Conductor')->orderby('id','desc')->get();
             $list1=Conductor::orderby('id','desc')->get()->pluck('id','nombre_cedula');
             $list2=EmpresaTransporte::orderby('id','desc')->pluck('id','razon_social');
-            $list3=Curso::pluck('id','nombre');
+            $list3=Curso::orderby('id','desc')->pluck('id','nombre');
             return [
                 'tabla'=>$items,
                 'listas'=>[

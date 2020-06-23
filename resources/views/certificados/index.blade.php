@@ -4,6 +4,7 @@
     <tabla-component
             url="certificados"
             titulo="CERTIFICADOS"
+            mayus="true"
             :columnas="[
             {nombre:'id'    ,alias:'#'},
             {nombre:'curso' ,alias:'CURSO', subtabla:'curso', subcolumna:'nombre'},
