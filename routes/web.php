@@ -28,8 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('empresas','EmpresaTransporteController');
     Route::resource('cursos','CursoController');
     Route::resource('conductores','ConductorController');
+
     Route::resource('certificados','CursoConductorController');
     Route::resource('instituciones','InstitucionController');
+    Route::get('lista/conductores','ConductorController@lista');
+    Route::get('lista/cursos','CursoController@lista');
 });
 Route::resource('pdf','CertificadoController');
 Route::get('consulta/{id}','CertificadoController@certificados');

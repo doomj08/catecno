@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Curso as Table;
+use App\Curso;
 use App\Http\Requests\CursoRequest;
 use Illuminate\Http\Request;
 
@@ -44,6 +45,12 @@ class CursoController extends Controller
     public function destroy($id)
     {
         Table::findOrFail($id)->delete();
+        return;
+    }
+    public function lista(Curso $conductor)
+    {
+        $list1=Curso::orderby('id','desc')->pluck('id','nombre');
+        return $list1;
         return;
     }
 }

@@ -2207,6 +2207,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     titulo: {
@@ -2714,6 +2718,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     label: '',
@@ -2729,6 +2739,10 @@ __webpack_require__.r(__webpack_exports__);
     errores: {
       type: '',
       "default": ''
+    },
+    url: {
+      type: String,
+      "default": ''
     }
   },
   data: function data() {
@@ -2737,6 +2751,21 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changevalue: function changevalue() {
       this.$emit('updatemodel', this.value); // 1. Emitting
+    },
+    consultar: function consultar() {
+      var _this = this;
+
+      axios.get('lista/' + this.url).then(function (res) {
+        _this.lista = res.data;
+        _this.cargando = false;
+        toast.fire({
+          title: 'Lista actualizada',
+          text: "Lista de opciones actualizada",
+          type: 'success'
+        });
+      })["catch"](function (e) {
+        _this.errores = e.response.data.errors;
+      });
     }
   }
 });
@@ -2997,6 +3026,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -43251,6 +43281,8 @@ var render = function() {
     "div",
     { staticClass: "modal fade", attrs: { id: "create" + _vm.titulo } },
     [
+      _c("label", { attrs: { for: "" } }, [_vm._v(_vm._s(_vm.urlaux))]),
+      _vm._v(" "),
       _c("div", { staticClass: "modal-dialog" }, [
         _c(
           "div",
@@ -43269,6 +43301,8 @@ var render = function() {
                 [_vm._v("Crear " + _vm._s(_vm.titulo))]
               ),
               _vm._v(" "),
+              _c("label", { attrs: { for: "" } }, [_vm._v(_vm._s(_vm.urlaux))]),
+              _vm._v(" "),
               _vm._m(0)
             ]),
             _vm._v(" "),
@@ -43286,7 +43320,8 @@ var render = function() {
                             label: campo.nombre,
                             type: campo.tipo,
                             value: campo.value,
-                            lista: _vm.listas[campo.opciones]
+                            lista: _vm.listas[campo.opciones],
+                            url: campo.urlaux
                           },
                           model: {
                             value: campo.value,
@@ -43698,7 +43733,7 @@ var render = function() {
                     expression: "value"
                   }
                 ],
-                staticClass: "campo",
+                staticClass: "campo col-10",
                 attrs: { type: _vm.type },
                 domProps: { value: _vm.value },
                 on: {
@@ -43741,6 +43776,17 @@ var render = function() {
                 }
               }
             }),
+        _vm._v(" "),
+        _vm.type == "Select"
+          ? _c(
+              "button",
+              {
+                staticClass: "col-1 btn-sm btn-info",
+                on: { click: _vm.consultar }
+              },
+              [_c("i", { staticClass: "fa fa fa-spinner" })]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm._t("default")
       ],
@@ -44307,7 +44353,7 @@ var render = function() {
                                                           },
                                                           [
                                                             _vm._v(
-                                                              "\n                                        Ver certificado\n                                        " +
+                                                              "\n                                        Ver \n                                        " +
                                                                 _vm._s(
                                                                   item[
                                                                     columna

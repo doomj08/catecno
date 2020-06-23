@@ -30,6 +30,7 @@
                                 <input @change="consultar(1)" v-model="search" type="search" aria-controls="dataTable" class="form-control bg-light border-0 small col-md-8" placeholder="Buscar por...">
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -73,7 +74,7 @@
                                 >
                                     <a :href="'pdf/'+item[columna.nombre]">
                                         <button type="button" v-if="item[columna.nombre]" class="btn btn-success  btn-sm col-sm-12">
-                                            Ver certificado
+                                            Ver 
                                             {{item[columna.nombre]}}
                                         </button>
                                     </a>

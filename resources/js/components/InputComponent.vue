@@ -2,15 +2,21 @@
     <div class="componente" >
         <div class="form">
             <li>{{label}}</li>
-            <select class="campo" v-if="type=='Select'" :value="value" :type="type" v-model="value"
+            <select class="campo col-10" v-if="type=='Select'" :value="value" :type="type" v-model="value"
                    v-on:input="$emit('input', $event.target.value)"
+
             >
+
                 <option>...</option>
                 <option v-for="(item,key) in lista" :value="item">{{key}}</option>
             </select>
+
             <input class="campo" v-else :value="value" :type="type"
                     v-on:input="$emit('input', $event.target.value)"
             >
+            <button v-if="type=='Select'" class="col-1 btn-sm btn-info" @click="consultar">
+                <i class="fa fa fa-spinner"></i>
+            </button>
             <slot></slot>
         </div>
     </div>
@@ -78,6 +84,11 @@
                 type:'',
                 default:''
             },
+            url:{
+                type:String,
+                default:''
+            },
+
 
         },
         data(){
@@ -89,7 +100,22 @@
         methods:{
             changevalue() {
                 this.$emit('updatemodel', this.value)  // 1. Emitting
-            }
+            },
+            consultar(){
+                axios.get('lista/'+this.url)
+                    .then((res)=>{
+                        this.lista=res.data
+                        this.cargando=false;
+                        toast.fire({
+                            title: 'Lista actualizada',
+                            text: "Lista de opciones actualizada",
+                            type:'success'
+                        })
+                    })
+                    .catch(e => {
+                        this.errores=e.response.data.errors;
+                    });
+            },
         },
     }
 </script>

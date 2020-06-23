@@ -1,9 +1,11 @@
 <template>
     <div class="modal fade" :id="'create'+titulo">
+        <label for="">{{urlaux}}</label>
         <div class="modal-dialog">
             <div class="modal-content" enctype="multipart/form-data">
                 <div class="modal-header">
                     <label for="nombre" class="text-uppercase font-weight-bold col-xl-10">Crear {{titulo}}</label>
+                    <label for="">{{urlaux}}</label>
                     <button type="button" class="close col-xl-2" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
@@ -16,6 +18,7 @@
                                        v-model="campo.value"
                                        :lista="listas[campo.opciones]"
                                        :class="campo.class"
+                                       :url="campo.urlaux"
                     >
                         <span class="text-danger span" v-for="error in errores[campo.nombre]">{{error}}</span>
                     </f-input-component>
@@ -23,6 +26,7 @@
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-primary" value="Guardar" @click="crear(titulo)">
                 </div>
+
             </div>
         </div>
     </div>
