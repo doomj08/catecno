@@ -14,4 +14,8 @@ class EmpresaTransporte extends Model
         'created_at' => 'datetime:Y-m-d', // Change your format
         'updated_at' => 'datetime:Y-m-d',
     ];
+    public function scopeBuscar($query,$criterio){
+        return $query
+            ->where('Razon_social','like','%'.$criterio.'%');
+    }
 }

@@ -28,4 +28,27 @@ class CursoConductor extends Model
         return $this->belongsTo('App\EmpresaTransporte');
     }
 
+    public function scopeFilter($query,$filter){
+        return $query
+                ->where('carnet','like','%'.$filter.'%')
+                ->orwhere('certificado','like','%'.$filter.'%')
+            ;
+    }
+    public function scopeBuscar($query,$criterio){
+        return $query
+            ->orwhereHas('Curso',function ($query) use($criterio){
+                return $query->where('nombre','like','%'.$criterio.'%');
+            })
+            ->orwhereHas('Conductor',function ($query) use($criterio){
+                return $query->where('Nombres','like','%'.$criterio.'%')
+                    ->orwhere('Apellidos','like','%'.$criterio.'%');
+            })
+            ->orwhereHas('EmpresaTransporte',function ($query) use($criterio){
+                return $query->where('Razon_social','like','%'.$criterio.'%');
+            })
+            ->orwhere('carnet','like','%'.$criterio.'%')
+            ->orwhere('id','like','%'.$criterio.'%');
+        ;
+    }
+
 }

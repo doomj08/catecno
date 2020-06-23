@@ -16,7 +16,8 @@ class CursoConductorController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $items=Table::with('Curso','EmpresaTransporte','Conductor')->orderby('id','desc')->paginate(2);
+
+            $items=Table::with('Curso','EmpresaTransporte','Conductor')->Buscar($request->filter)->orderby('id','desc')->paginate($request->per_page);
             $list1=Conductor::orderby('id','desc')->get()->pluck('id','nombre_cedula');
             $list2=EmpresaTransporte::orderby('id','desc')->pluck('id','razon_social');
             $list3=Curso::orderby('id','desc')->pluck('id','nombre');
@@ -27,7 +28,7 @@ class CursoConductorController extends Controller
                     'empresas_transporte'=>$list2,
                     'cursos'=>$list3,
                 ],
-                'paginate'=>[
+                'pagination'=>[
                     'total'=>$items->total(),
                     'per_page'=>$items->perPage(),
                     'current_page'=>$items->currentPage(),

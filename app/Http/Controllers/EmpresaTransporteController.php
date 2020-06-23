@@ -16,10 +16,18 @@ class EmpresaTransporteController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $items=Table::get();
+            $items=Table::paginate(10);
             //$list=Curso::pluck('id','id')->toArray();
             return [
                 'tabla'=>$items,
+                'pagination'=>[
+                    'total'=>$items->total(),
+                    'per_page'=>$items->perPage(),
+                    'current_page'=>$items->currentPage(),
+                    'last_page'=>$items->lastPage(),
+                    'from'=>$items->firstItem(),
+                    'to'=>$items->lastItem(),
+                ]
                 //  'listas'=>$list
             ];
         }

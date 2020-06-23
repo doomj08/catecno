@@ -34,4 +34,10 @@ class Conductor extends Model
     {
         return 'C.C:'.$this->cedula. ' | ' .$this->nombres . ' ' . $this->apellidos;
     }
+    public function scopeBuscar($query,$criterio){
+        return $query
+            ->where('cedula','like','%'.$criterio.'%')
+            ->orwhere('Nombres','like','%'.$criterio.'%')
+            ->orwhere('Apellidos','like','%'.$criterio.'%');
+    }
 }

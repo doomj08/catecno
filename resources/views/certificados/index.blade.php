@@ -4,16 +4,15 @@
     <tabla-component
             url="certificados"
             titulo="CERTIFICADOS"
-            mayus="true"
             :columnas="[
             {nombre:'id'    ,alias:'#'},
-            {nombre:'curso' ,alias:'CURSO', subtabla:'curso', subcolumna:'nombre'},
-            {nombre:'carnet', alias:'CARNET'},
-            {nombre:'certificado', alias:'CERTIFICADO', urlarchivo:'pdf'},
-            {nombre:'conductor' ,alias:'CONDUCTOR', subtabla:'conductor', subcolumna:'nombres', subcolumna2:'apellidos'},
-            {nombre:'fecha_ingreso' ,alias:'FECHA DE INGRESO'},
-            {nombre:'fecha_vence' ,alias:'FECHA DE VENCIMIENTO'},
-            {nombre:'updated_at' ,alias:'ÚLTIMA MODIFICACIÓN'},
+            {nombre:'curso' ,alias:'Curso', subtabla:'curso', subcolumna:'nombre'},
+            {nombre:'carnet', alias:'Carnet'},
+            {nombre:'certificado', alias:'Certificado', urlarchivo:'pdf'},
+            {nombre:'conductor' ,alias:'Conductor', subtabla:'conductor', subcolumna:'nombres', subcolumna2:'apellidos'},
+            {nombre:'fecha_ingreso' ,alias:'Fecha de ingreso'},
+            {nombre:'fecha_vence' ,alias:'Fecha de vencimiento'},
+            {nombre:'updated_at' ,alias:'Modificado'},
         ]"
             :campos="[
             {nombre: 'curso_id',                alias:'curso',          tipo: 'Select', value:'',   opciones:'cursos',              class:'col-sm-12'},
