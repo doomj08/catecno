@@ -3146,7 +3146,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.cargando = true;
       axios.get(this.url).then(function (res) {
-        _this.items = res.data.tabla;
+        _this.items = res.data.tabla.data;
         _this.listas = res.data.listas;
         _this.cargando = false;
         _this.camposeditados = "";

@@ -142,7 +142,7 @@
                 this.cargando=true;
                 axios.get(this.url)
                     .then((res)=>{
-                        this.items=res.data.tabla
+                        this.items=res.data.tabla.data
                         this.listas=res.data.listas
                         this.cargando=false;
                         this.camposeditados="";
